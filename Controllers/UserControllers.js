@@ -13,7 +13,6 @@ exports.signup = async function (req, res) {
         name,
         email,
         password,
-        address,
       },
     });
     cookieToken(user, res);
