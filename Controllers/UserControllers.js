@@ -20,3 +20,22 @@ exports.signup = async function (req, res) {
     throw new Error(error);
   }
 };
+
+//User Login
+exports.login = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    const user = await Prisma.user.findUnique({
+      where: { email },
+    });
+    if (!user) {
+      throw new Error("User not found !");
+    }
+    if (user.password !== password) {
+      throw new Error("Invalid password  ");
+    }
+    cookieToken(user, res);
+  } catch (error) {
+    throw new Error(error);
+  }
+};

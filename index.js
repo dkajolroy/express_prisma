@@ -16,6 +16,12 @@ app.use(cookieParser());
 //Router Setup
 readdirSync("./Routes").map((x) => app.use("/", require("./Routes/" + x)));
 
+app.use(function (err, req, res, next) {
+  if (err) {
+    res.status(500).send({ error: "Something went wrong !" });
+  }
+});
+
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
 });
